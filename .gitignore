@@ -1,0 +1,5 @@
+*.project
+*.xml
+*.class
+*.properties
+*.jar
