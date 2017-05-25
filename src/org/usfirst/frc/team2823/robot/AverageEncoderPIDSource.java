@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 
 public class AverageEncoderPIDSource implements PIDSource {
-	
 	Encoder l;
 	Encoder r;
 	
@@ -26,6 +25,7 @@ public class AverageEncoderPIDSource implements PIDSource {
 
 	@Override
 	public double pidGet() {
+		//return the average of the two encoder values
 		return (l.getDistance() + r.getDistance()) / 2;
 	}
 }
