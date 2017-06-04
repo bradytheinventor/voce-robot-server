@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 	final double YD_TO_IN = 3 * FT_TO_IN;
 	
 	//declare variables
-	String prevCommand = "FAIL";
+	String prevCommand = "NONE";
 	
 	//declare sensor objects
 	Encoder lEncoder;
@@ -91,7 +91,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		//read voice commands from SmartDashboard
-		String command = SmartDashboard.getString("Command", "FAIL");
+		String command = SmartDashboard.getString("Command", "NONE");
 		boolean newCommand = SmartDashboard.getBoolean("New Command", false);
 		
 		//if a new command was sent (client sets newCommand to true)
@@ -172,6 +172,18 @@ public class Robot extends IterativeRobot {
 			else if(command.contains("rotating") || command.contains("spinning")) {
 				rControl.reset();
 			}
+		}
+		
+		//drive a particular distance if a 'drive' command is sent
+		else if(command.contains("drive")) {
+			//calculate the direction multiplier (1.0 is forward) and the distance to drive in inches
+			double direction = command.contains("forward") ? 1.0 : -1.0;
+			double distance = SmartDashboard.getNumber("Command Number", 0.0) *
+								getConversion(SmartDashboard.getString("Command Units", "NONE"));
+			
+			//send values to PID controller
+			dControl.setSetpoint(distance * direction);
+			dControl.enable();
 		}
 	}
 }
