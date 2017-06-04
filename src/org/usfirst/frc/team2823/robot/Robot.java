@@ -185,5 +185,16 @@ public class Robot extends IterativeRobot {
 			dControl.setSetpoint(distance * direction);
 			dControl.enable();
 		}
+		
+		//rotate by a particular angle if a 'rotate' command is sent
+		else if(command.contains("rotate") || command.contains("turn")) {
+			//calculate the direction multiplier (1.0 is clockwise, to the right)
+			double direction = command.contains("right") ? 1.0 : -1.0;
+			double angle = SmartDashboard.getNumber("Command Number", 0.0);
+			
+			//send values to PID controller
+			rControl.setSetpoint(angle * direction);
+			rControl.enable();
+		}
 	}
 }
