@@ -120,6 +120,29 @@ public class Robot extends IterativeRobot {
 	
 	//parse the command string to determine what the robot should do
 	public void runCommand(String command) {
+		//stop all movement if a 'disable' command is sent
+		if(command.contains("disable")) {
+			dControl.reset();
+			rControl.reset();
+		}
 		
+		//stop specific movements if a 'stop' command is sent
+		else if(command.contains("stop")) {
+			//stop everything
+			if(command.contains("all") || command.contains("every thing")) {
+				dControl.reset();
+				rControl.reset();
+			}
+			
+			//stop driving
+			else if(command.contains("driving")) {
+				dControl.reset();
+			}
+			
+			//stop rotating
+			else if(command.contains("rotating") || command.contains("spinning")) {
+				rControl.reset();
+			}
+		}
 	}
 }
