@@ -123,6 +123,30 @@ public class Robot extends IterativeRobot {
 		rSpark.set(-p);
 	}
 	
+	//calculate the unit conversion from 'u' to inches
+	public double getConversion(String u) {
+		switch(u) {
+		case "centimeter":
+		case "centimeters":
+			return CM_TO_IN;
+		
+		case "meter":
+		case "meters":
+			return M_TO_IN;
+		
+		case "foot":
+		case "feet":
+			return FT_TO_IN;
+		
+		case "yard":
+		case "yards":
+			return YD_TO_IN;
+		
+		default:
+			return 1.0;
+		}
+	}
+	
 	//parse the command string to determine what the robot should do
 	public void runCommand(String command) {
 		//stop all movement if a 'disable' command is sent
