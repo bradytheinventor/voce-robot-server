@@ -93,15 +93,9 @@ public class Robot extends IterativeRobot {
 		if(newCommand && !command.equals(prevCommand)) {
 			//reset flag and execute command
 			SmartDashboard.putBoolean("New Command", false);
-			System.out.println(command);
 			
-			if(command.contains("servo")) {
-				if(command.contains("on")) {
-					servo.set(1.0);
-				} else if(command.contains("off")) {
-					servo.set(0.0);
-				}
-			}
+			System.out.println(command);
+			runCommand(command);
 		}
 		
 		prevCommand = command;
@@ -122,5 +116,10 @@ public class Robot extends IterativeRobot {
 	public void driveRight(double p) {
 		rTalon.set(-p);
 		rSpark.set(-p);
+	}
+	
+	//parse the command string to determine what the robot should do
+	public void runCommand(String command) {
+		
 	}
 }
