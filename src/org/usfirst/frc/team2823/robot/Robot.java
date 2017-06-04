@@ -18,6 +18,11 @@ public class Robot extends IterativeRobot {
 	final double ENC_TO_IN = 2 * Math.PI * WHEEL_RADIUS * DRIVE_RATIO / ENCODER_RESOLUTION;
 	final double IN_TO_ENC = 1 / ENC_TO_IN;
 	
+	final double CM_TO_IN = 1 / 2.54;
+	final double M_TO_IN = 100 * CM_TO_IN;
+	final double FT_TO_IN = 12;
+	final double YD_TO_IN = 3 * FT_TO_IN;
+	
 	//declare variables
 	String prevCommand = "FAIL";
 	
