@@ -62,11 +62,11 @@ public class Robot extends IterativeRobot {
 		//create PID controller objects
 		dSource = new AverageEncoderPIDSource(lEncoder, rEncoder);
 		
-		dControl = new AdvancedPIDController(0.001, 0.0000025, 0.01, dSource, dOutput, 0.01);
-		rControl = new AdvancedPIDController(0, 0, 0, gyro, rOutput, 0.01);
-		
 		dOutput = new DrivePIDOutput(this);
 		rOutput = new RotationPIDOutput(this);
+		
+		dControl = new AdvancedPIDController(0.001, 0.0000025, 0.01, dSource, dOutput, 0.01);
+		rControl = new AdvancedPIDController(0.03, 0.000001, 0.01, gyro, rOutput, 0.01);
 		
 		//put initial SmartDashboard values
 		SmartDashboard.putBoolean("New Command", false);
