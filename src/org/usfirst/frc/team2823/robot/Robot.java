@@ -195,7 +195,7 @@ public class Robot extends IterativeRobot {
 			rControl.reset();
 			
 			//send values to PID controller
-			dControl.setSetpoint(distance * direction);
+			dControl.setSetpoint(distance * direction * IN_TO_ENC);
 			dControl.enable();
 			
 			//output new setpoint to SmartDashboard
