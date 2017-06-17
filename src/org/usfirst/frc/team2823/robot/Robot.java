@@ -22,6 +22,8 @@ public class Robot extends IterativeRobot {
 	final double FT_TO_IN = 12;
 	final double YD_TO_IN = 3 * FT_TO_IN;
 	
+	final double SPINS = 4;
+	
 	//declare variables
 	String prevCommand = "NONE";
 	
@@ -49,8 +51,8 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		
 		//create sensor objects
-		lEncoder = new Encoder(2, 3);
 		rEncoder = new Encoder(0, 1);
+		lEncoder = new Encoder(2, 3);
 		gyro = new ADXRS450_Gyro();
 		
 		//create output device objects
@@ -176,7 +178,7 @@ public class Robot extends IterativeRobot {
 			}
 			
 			//stop rotating
-			else if(command.contains("rotating") || command.contains("spinning")) {
+			else if(command.contains("rotating") || command.contains("turning") || command.contains("spinning")) {
 				rControl.reset();
 			}
 		}
@@ -219,6 +221,22 @@ public class Robot extends IterativeRobot {
 			rControl.enable();
 			
 			//output new setpoint to SmartDashboard
+			SmartDashboard.putNumber("R Setpoint", rControl.getSetpoint());
+		}
+		
+		//rotate wildly if a 'spin in circles' command is sent
+		else if(command.contains("spin in circles")) {
+			//reset gyro for relative move
+			gyro.reset();
+			
+			//turn off translational PID controller
+			dControl.reset();
+			
+			//send values to PID controller
+			rControl.setSetpoint(360.0 * SPINS);
+			rControl.enable();
+			
+			//output new "setpoint" to SmartDashboard
 			SmartDashboard.putNumber("R Setpoint", rControl.getSetpoint());
 		}
 	}
