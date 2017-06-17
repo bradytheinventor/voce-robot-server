@@ -3,7 +3,6 @@ package org.usfirst.frc.team2823.robot;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,8 +36,6 @@ public class Robot extends IterativeRobot {
 	Talon lTalon;
 	Spark lSpark;
 	
-	Servo servo;
-	
 	//declare PID controller objects
 	AverageEncoderPIDSource dSource;
 	
@@ -61,9 +58,6 @@ public class Robot extends IterativeRobot {
 		rSpark = new Spark(1);
 		lTalon = new Talon(2);
 		lSpark = new Spark(3);
-		
-		servo = new Servo(9);
-		servo.set(0.0);
 		
 		//create PID controller objects
 		dSource = new AverageEncoderPIDSource(lEncoder, rEncoder);
