@@ -69,6 +69,15 @@ public class Robot extends IterativeRobot {
 		rControl = new AdvancedPIDController(0.03, 0.000001, 0.01, gyro, rOutput, 0.01);
 		
 		//put initial SmartDashboard values
+		SmartDashboard.putNumber("Distance", 0.0);
+		SmartDashboard.putNumber("Rotation", 0.0);
+		
+		SmartDashboard.putNumber("D Setpoint", 0.0);
+		SmartDashboard.putNumber("R Setpoint", 0.0);
+		
+		SmartDashboard.putString("Command", "NONE");
+		SmartDashboard.putString("Command Units", "NONE");
+		SmartDashboard.putNumber("Command Number", 0.0);
 		SmartDashboard.putBoolean("New Command", false);
 	}
 	
@@ -96,6 +105,10 @@ public class Robot extends IterativeRobot {
 			System.out.println(command);
 			runCommand(command);
 		}
+		
+		//output encoder distance and gyro rotation to SmartDashboard
+		SmartDashboard.putNumber("Distance", dSource.pidGet() * ENC_TO_IN);
+		SmartDashboard.putNumber("Rotation", gyro.getAngle());
 		
 		prevCommand = command;
 	}
@@ -184,6 +197,9 @@ public class Robot extends IterativeRobot {
 			//send values to PID controller
 			dControl.setSetpoint(distance * direction);
 			dControl.enable();
+			
+			//output new setpoint to SmartDashboard
+			SmartDashboard.putNumber("D Setpoint", dControl.getSetpoint() * ENC_TO_IN);
 		}
 		
 		//rotate by a particular angle if a 'rotate' command is sent
@@ -201,6 +217,9 @@ public class Robot extends IterativeRobot {
 			//send values to PID controller
 			rControl.setSetpoint(angle * direction);
 			rControl.enable();
+			
+			//output new setpoint to SmartDashboard
+			SmartDashboard.putNumber("R Setpoint", rControl.getSetpoint());
 		}
 	}
 }
