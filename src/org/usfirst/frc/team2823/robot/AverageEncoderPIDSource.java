@@ -28,4 +28,9 @@ public class AverageEncoderPIDSource implements PIDSource {
 		//return the average of the two encoder values
 		return (l.getDistance() + r.getDistance()) / 2;
 	}
+	
+	public void reset() {
+		l.reset();
+		r.reset();
+	}
 }

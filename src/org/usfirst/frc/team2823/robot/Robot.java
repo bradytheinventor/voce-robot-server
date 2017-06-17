@@ -175,6 +175,12 @@ public class Robot extends IterativeRobot {
 			double distance = SmartDashboard.getNumber("Command Number", 0.0) *
 								getConversion(SmartDashboard.getString("Command Units", "NONE"));
 			
+			//reset the encoders for relative move
+			dSource.reset();
+			
+			//turn off rotational PID controller
+			rControl.reset();
+			
 			//send values to PID controller
 			dControl.setSetpoint(distance * direction);
 			dControl.enable();
@@ -185,6 +191,12 @@ public class Robot extends IterativeRobot {
 			//calculate the direction multiplier (1.0 is clockwise, to the right)
 			double direction = command.contains("right") ? 1.0 : -1.0;
 			double angle = SmartDashboard.getNumber("Command Number", 0.0);
+			
+			//reset gyro for relative move
+			gyro.reset();
+			
+			//turn off translational PID controller
+			dControl.reset();
 			
 			//send values to PID controller
 			rControl.setSetpoint(angle * direction);
